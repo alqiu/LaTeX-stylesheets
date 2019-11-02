@@ -5,30 +5,29 @@
 
 % package imports
 
-\RequirePackage[T1]{fontenc} % fixes special characters in output pdf
-\RequirePackage[utf8]{inputenc} % allows inputting special characters in source
-\RequirePackage{lmodern} % prevents bitmapping with fontenc
+\RequirePackage[T1]{fontenc}         % fixes special characters in output pdf
+\RequirePackage[utf8]{inputenc}      % allows inputting special characters in source
+\RequirePackage{lmodern}             % prevents bitmapping with fontenc
 \RequirePackage{alltt}
-% \RequirePackage{minted}
-\RequirePackage{xcolor} % colours in math mode
-\RequirePackage{graphicx} % embed graphics
+\RequirePackage{xcolor}              % colours in math mode
+\RequirePackage{graphicx}            % embed graphics
 %\RequirePackage[labelformat=empty]{caption} % remove `Figure #: ' from captions
-\RequirePackage{enumitem} % change item separation in list
-\RequirePackage{amsmath} % improve math functionality
-\RequirePackage{mathtools} % found in kdhw.cls
-\RequirePackage{amssymb} % increase symbol library
-\RequirePackage{amsthm} % create theorem environments
+\RequirePackage{enumitem}            % change item separation in list
+\RequirePackage{amsmath}             % improve math functionality
+\RequirePackage{mathtools}           % found in kdhw.cls
+\RequirePackage{amssymb}             % increase symbol library
+\RequirePackage{amsthm}              % create theorem environments
 \RequirePackage{fancyhdr}
 \RequirePackage{geometry}
-\RequirePackage{indentfirst} % indent first paragraph of sections
-\RequirePackage{centernot} % \centernot before a symbol to negate it
-\RequirePackage{titling} % adjust title geometry
+\RequirePackage{indentfirst}         % indent first paragraph of sections
+\RequirePackage{centernot}           % \centernot before a symbol to negate it
+\RequirePackage{titling}             % adjust title geometry
 \RequirePackage{float}
-\RequirePackage{bm} % bold math font
-\RequirePackage{bbm} % bold digits
+\RequirePackage{bm}                  % bold math font
+\RequirePackage{bbm}                 % bold digits
 \RequirePackage{tikz-cd}
 \RequirePackage{lastpage}
-\RequirePackage[hidelinks]{hyperref} % try to load this last!
+\RequirePackage{hyperref}            % try to load this last!
 
 \hypersetup{pdfstartview={XYZ null null 1.00},
 			colorlinks=true,
@@ -55,29 +54,20 @@
 \newcommand{\sgn}{\operatorname{sgn}}
 \newcommand{\del}{\vec{\nabla}}
 \newcommand{\avgint}{\mathrel{\int\!\!\!\!\!\!-}}
-\newcommand{\cc}[1]{\overline{#1}} % from kdhw.cls
+\newcommand{\cc}[1]{\overline{#1}}                       % from kdhw.cls
 \newcommand{\inner}[2]{\left\langle #1, #2\right\rangle} % from kdhw.cls
-\newcommand{\norm}[1]{\Vert #1 \Vert} % from kdhw.cls
-% \newcommand{\norm}[1]{\left|\left| #1 \right|\right|} % the actual definition of norm found in kdhw.cls
+\newcommand{\norm}[1]{\left|\left| #1 \right|\right|}    % from kdhw.cls
 
 \renewcommand{\qedsymbol}{$\blacksquare$} % Change Q.E.D. tombstone
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% from kdhw.cls
-%\def\@course{}
-%\newcommand{\course}[1]{\def\@course{#1}}
-%
-%\def\@psetnumber{}
-%\newcommand{\psetnumber}[1]{\def\@psetnumber{#1}}
-%
-% \def\@name{}
-% \newcommand{\name}[1]{\def\@name{#1}}
-%
-% \def\@prof{}
-% \newcommand{\prof}[1]{\def\@prof{#1}}
+\newcommand\@course{}
+\newcommand\course[1]{\renewcommand\@course{#1}}
 
-\newcommand{\course}{}
-\newcommand{\hwtype}{}
-\newcommand{\hwnumber}{}
+\newcommand\@hwtype{}
+\newcommand\hwtype[1]{\renewcommand\@hwtype{#1}}
+
+\newcommand\@hwnumber{}
+\newcommand\hwnumber[1]{\renewcommand\@hwnumber{#1}}
 
 %%%%%%%%%%%%%%%% requires package xparse %%%%%%%%%%%%%%%%
 %\usepackage{xparse} % define differential operator commands
@@ -176,10 +166,6 @@
 \fancyhf{}
 \renewcommand{\footrulewidth}{0.4pt}
 \fancyhead[R]{\scshape \@author}
-\fancyhead[C]{\scshape \hwtype\ \hwnumber}
-\fancyhead[L]{\scshape \course}
+\fancyhead[C]{\scshape \@hwtype\ \@hwnumber}
+\fancyhead[L]{\scshape \@course}
 \fancyfoot[C]{\thepage\ of \pageref*{LastPage}}
-
-% \setcounter{tocdepth}{2} % set to 2 to include subsections in table of contents
-\setlength{\droptitle}{-6em} % See PACKAGES § titling
-% \pagenumbering{gobble} for no page numbers
