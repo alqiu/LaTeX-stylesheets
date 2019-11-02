@@ -1,54 +1,76 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{aq-cv}[2019/10/01 CV Template]
+\ProvidesClass{aq-cv}[2019/11/02 CV Template]
 
 \LoadClassWithOptions{article}
 
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage{geometry}
-\usepackage{lastpage}
-\usepackage{titlesec}
-\usepackage{fancyhdr}
-\usepackage[hidelinks]{hyperref}
-\usepackage[dvipsnames, hyperref]{xcolor}
+\RequirePackage[T1]{fontenc}    % fixes special characters in output pdf
+\RequirePackage[utf8]{inputenc} % allows inputting special characters in source
+\RequirePackage{lmodern}        % prevents bitmapping with fontenc
+\RequirePackage{geometry}
+\RequirePackage{lastpage}
+\RequirePackage{titlesec}
+\RequirePackage{fancyhdr}
+\RequirePackage[hidelinks]{hyperref}
+\RequirePackage[dvipsnames, hyperref]{xcolor}
 % Currently unused packages; include/exclude as required.
-%\usepackage{enumitem}
-%\usepackage{setspace}
-%\usepackage{layout}
-%\usepackage{bm} % bold math font
-%\usepackage{lipsum}
-%\usepackage{graphicx}
-%\usepackage{amsmath}
-%\usepackage{amssymb}
+%\RequirePackage{enumitem}
+%\RequirePackage{setspace}
+%\RequirePackage{layout}
+%\RequirePackage{bm}
+%\RequirePackage{lipsum}
+%\RequirePackage{graphicx}
+%\RequirePackage{amsmath}
+%\RequirePackage{amssymb}
+
+\newcommand\@firstname{}
+\newcommand\firstname[1]{\renewcommand\@firstname{#1}}
+
+\newcommand\@surname{}
+\newcommand\surname[1]{\renewcommand\@surname{#1}}
+
+\newcommand\fullname{\@firstname\ \@surname}
+%\newcommand\fullname{\ifthenelse{\isodd{3}}{2}{3}}  % this needs etoolbox
+
+\newcommand\@email{}
+\newcommand\email[1]{\renewcommand\@email{#1}}
+
+\newcommand\@website{}
+\newcommand\website[1]{\renewcommand\@website{#1}}
+
+\newcommand\@websitenohttp{}
+\newcommand\websitenohttp[1]{\renewcommand\@websitenohttp{#1}}
+
+\newcommand\@tel{}
+\newcommand\tel[1]{\renewcommand\@tel{#1}}
+
+\newcommand\@telurl{}
+\newcommand\telurl[1]{\renewcommand\@telurl{#1}}
+
+\hypersetup{pdfstartview={XYZ null null 1.00},
+			colorlinks=true
+			}
+
+\AtBeginDocument{
+	\hypersetup{
+		pdftitle={\@surname, \@firstname\ - Resume},
+		pdfauthor={\fullname},
+		pdfsubject={Resume},
+		pdfcreator={\LaTeX},
+		urlcolor=MidnightBlue,
+		linkcolor=black
+	}
+}
 
 \newlength{\margindistance}
 \newlength{\sectiondistance}
 \newlength{\sectionwidth}
 \newlength{\leftdistance}
 
-\newcommand\firstname{Arthur Lei}
-\newcommand\surname{Qiu}
-\newcommand\fullname{\firstname\ \surname}
-\newcommand\email{arthur.qiu@mail.utoronto.ca}
-\newcommand\website{http://uoft.me/alq}
-\newcommand\websitesuppresshttp{uoft.me/alq}
-\newcommand\tel{+1 (778) 233-1021}
-\newcommand\telurl{+1-778-233-1021} % no spaces or parantheses
-
 \setlength\margindistance{2in} % distance from left side of page to end of section header
 \setlength\sectiondistance{2em} % distance between section header and text body
 \setlength\sectionwidth{1.15in} % width of section title box
 \setlength\leftdistance{\dimexpr\margindistance+\sectiondistance}
 
-\hypersetup{pdfstartview={XYZ null null 1.00},
-	pdftitle={\surname, \firstname\ - Resume},
-	pdfauthor={\fullname},
-	pdfsubject={Resume},
-	pdfcreator={\LaTeX},
-	colorlinks=true,
-	urlcolor=MidnightBlue,
-	linkcolor=black
-}
 \geometry{top=\dimexpr1in+29.49452pt-15.89452pt,
 	bottom=1in,
 	right=1in,
@@ -93,22 +115,22 @@
 \fancypagestyle{firstpage}{
 	\fancyhf{}
 	\fancyhead[C]{\hspace*{\FHleft}{\LARGE{\textbf{\fullname}}} \\
-		\hspace*{\FHleft}\href{mailto:\email}{\email}
-		$\cdot$ \href{\website}{\websitesuppresshttp}
-		% $\cdot$ \href{tel:\telurl}{\tel}
+		\hspace*{\FHleft}\href{mailto:\@email}{\@email}
+		$\cdot$ \href{\@website}{\@websitenohttp}
+		% $\cdot$ \href{tel:\@telurl}{\@tel}
 	}
 	\fancyfoot[C]{\hspace*{\FHleft}\thepage~of \pageref{LastPage}}
 }
 
 \fancypagestyle{otherpages}{
 	\fancyhf{}
-	\fancyhead[L]{\hspace*{\FHleft}\href{mailto:\email}{\email}}
+	\fancyhead[L]{\hspace*{\FHleft}\href{mailto:\@email}{\@email}}
 	\fancyhead[C]{\hspace*{\FHleft}\textbf{\fullname}}
-	\fancyhead[R]{\href{\website}{\websitesuppresshttp}}
+	\fancyhead[R]{\href{\@website}{\@websitenohttp}}
 	\fancyfoot[C]{\hspace*{\FHleft}\thepage~of \pageref{LastPage}}
 }
 
-\pagestyle{firstpage}
+\pagestyle{otherpages}
 \makeatletter
 \let\ps@plain\ps@fancy % plain style = fancy style
 \makeatother
