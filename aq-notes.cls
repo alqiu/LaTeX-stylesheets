@@ -116,10 +116,11 @@
 	\newtheorem{example}[theorem]{Example}
 	\newtheorem*{example*}{Example}
 	\newtheorem*{examples*}{Examples}
-%%%%%%%%%%%%%%%% theorem styles defined after this point will have a $\blacklozenge$ at the end %%%%%%%%%%%%%%%%
-\makeatletter
-   \def\@endtheorem{\hfill\pushQED{$\blacklozenge$}\popQED\endtrivlist\@endpefalse }
-\makeatother
+% if uncommented, theorem styles defined after this point
+% will have a \blacklozenge at the end - raises an error at the moment
+% \makeatletter
+%    \def\@endtheorem{\hfill\pushQED{$\blacklozenge$}\popQED\endtrivlist\@endpefalse }
+% \makeatother
 
 \numberwithin{figure}{section}
 \numberwithin{equation}{section}
@@ -134,6 +135,7 @@
 }
 
 \pagestyle{fancy}
+\fancyhf{}
 \renewcommand{\footrulewidth}{0.4pt}
 \fancyhead[C]{\scshape \@course}
 \fancyfoot[C]{\thepage\ of \pageref*{LastPage}}

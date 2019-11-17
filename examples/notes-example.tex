@@ -1,0 +1,113 @@
+\documentclass[11pt, letterpaper]{aq-notes}
+
+\title{\scshape The Fourier transform}
+\author{Arthur Lei Qiu}
+\date{7 November 2019}
+\course{MAT495}
+
+\newcommand{\schwartz}{\mathcal{S}}
+
+\begin{document}
+
+\maketitle
+%\tableofcontents
+
+\section{The Fourier transform}
+
+\subsection{Introduction}
+
+Roughly speaking, the Fourier transform is a ``continuous'' version of the Fourier series. Recall that the $n^\text{th}$ Fourier coefficient of an integrable function $f \colon [0, 1] \to \C$ is given by
+\[
+	a_n = \int_0^1 f(x)e^{-2\pi inx}\,dx.
+\]
+The Fourier transform can be thought of as indexing Fourier coefficients over $\R$ instead of $\Z$ (that is, allowing $a_\xi$ for $\xi \in \R$).
+
+\begin{definition}
+	The \textbf{Fourier transform} of a function $f \colon \R \to \C$ is the function $\hat{f} \colon \R \to \C$ defined by
+	\begin{align}\label{eq:ftransform}
+		\hat{f}(\xi) = \int_{-\infty}^\infty f(x)e^{-2\pi i\xi x}\,dx,
+	\end{align}
+	the integral being taken in the Riemann sense.
+\end{definition}
+Of course, this definition is purely formal; it is not clear if the integral even converges. To make sense of this, we need some hypotheses on the smoothness and decay of $f$.
+
+\subsection{Schwartz functions}
+
+\begin{definition}
+	A smooth function $f \colon \R \to \C$ is called a \textbf{Schwartz function} if $f$ and all of its derivatives are rapidly decreasing, in the sense that
+	\begin{align}\label{eq:rapid-dec}
+		\sup_{x \in \R} |x^kf^{(\ell)}(x)| < \infty, \qquad \forall k, \ell \geq 0.
+	\end{align}
+	The collection of all such functions is called the \textbf{Schwartz space} on $\R$ and denoted by $\schwartz$.
+\end{definition}
+
+\begin{proposition}\label{prop:schwartz-prop}
+	The following are true about Schwartz space.
+	\begin{enumerate}[label=(\roman*)]
+		\item $\schwartz$ forms a vector space over $\C$. Moreover, $\schwartz$ is closed under differentiation and multiplication by polynomials.
+		\item $C^\infty_c(\R, \C) \subsetneq \schwartz \subsetneq C^\infty(\R, \C)$ and $\schwartz \subsetneq \mathcal{M}$.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	\textbf{(i)} This is mostly an application of the triangle inequality. Fix $k, \ell \geq 0$. Given $f, g \in \schwartz$ and $a \in \C$, we have
+	\[
+		\sup_{x \in \R} \left|x^k(af + g)^{(\ell)}(x)\right| \leq \sup_{x \in \R} \left(\left|x^k(af)^{(\ell)}(x)\right| + \left|x^kg^{(\ell)}(x)\right|\right) \leq |a|\sup_{x \in \R} |x^kf^{(\ell)}(x)| + \sup_{x \in \R} |x^kg^{(\ell)}(x)|.
+	\]
+	Since $|x^k(f')^{(\ell)}(x)| = |x^kf^{(\ell + 1)}(x)|$, Schwartz space is closed under differentiation. To show that $\schwartz$ is closed under multiplication by polynomials, we show that for all $f \in \schwartz$, we have $xf(x) \in \schwartz$, and using this and the fact that $\schwartz$ is a vector space, we obtain the result. We can show inductively that
+	\[
+		(xf(x))^{(\ell)} = \ell f^{(\ell - 1)}(x) + xf^{(\ell)}(x), \qquad \forall \ell \geq 0,
+	\]
+	and hence,
+	\[
+		\sup_{x \in \R} |x^k(xf(x))^{(\ell)}| \leq \ell\sup_{x \in \R}|x^kf^{(\ell - 1)}(x)| + \sup_{x \in \R}|x^{k + 1}f^{(\ell)}(x)| < \infty.
+	\]
+
+	\textbf{(ii)} An example of a smooth function that is not Schwartz is given by $e^x$. The inclusion $C^\infty_c(\R, \C) \subseteq \schwartz$ is a consequence of the extreme value theorem, and an example of a Schwartz function with non-compact support is the Gaussian
+	\[
+		f(x) = e^{-ax^2}, \qquad a > 0.
+	\]
+	To see this, observe that every derivative of $f$ is of the form $f^{(\ell)}(x) = P_\ell(x)f(x)$ for some polynomial $P_\ell$, and that
+	\[
+		\sup_{x \in \R} |x^kf(x)| < \infty, \qquad \forall k \geq 0.
+	\]
+	Finally, if $f(x)$ is bounded by $\alpha$ and $x^2f(x)$ is bounded by $\beta$, then
+	\[
+		(1 + x^2)|f(x)| \leq \alpha + \beta,
+	\]
+	hence $\schwartz \subseteq \mathcal{M}$. On the other hand, the function $e^{-|x|}$ is moderately decreasing (in fact, rapidly decreasing) but not Schwartz because it is not differentiable at $0$.
+\end{proof}
+
+Since Schwartz functions are moderately decreasing, their Fourier transform is well-defined, and it turns out that Schwartz functions play particularly nicely with the Fourier transform. In the following statements, the notation $f(x) \mapsto \hat{f}(\xi)$ means that $\hat{f}$ is the Fourier transform of $f$.
+
+\begin{proposition}\label{prop:fourier-prop}
+	Let $f \in \schwartz$. The following are true:
+	\begin{enumerate}[label=(\roman*)]
+		\item If $h \in \R$, then
+		\[
+			f(x + h) \mapsto \hat{f}(\xi)e^{2\pi i\xi h}
+		\]
+		and
+		\[
+			f(x)e^{-2\pi i hx} \mapsto \hat{f}(\xi + h).
+		\]
+		\item If $\delta > 0$, then
+		\[
+			f(\delta x) \mapsto \f{1}{\delta}\hat{f}\left(\f{\xi}{\delta}\right).
+		\]
+		\item We have
+		\[
+			f'(x) \mapsto 2\pi i \xi\hat{f}(\xi).
+		\]
+		Furthermore, $\hat{f}$ is differentiable, and
+		\[
+			-2\pi i xf(x) \mapsto (\hat{f})'(\xi).
+		\]
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	Exercise.
+\end{proof}
+
+\end{document}

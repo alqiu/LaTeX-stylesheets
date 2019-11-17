@@ -1,0 +1,62 @@
+\documentclass[letterpaper, 11pt]{aq-hw}
+
+\usepackage{lipsum}
+
+\author{Student name}
+\course{Class name}
+\hwtype{Problem Set}
+\hwnumber{7}
+
+\begin{document}
+
+\paragraph{1.} \lipsum[1]
+
+\paragraph{2.} \lipsum[2]
+
+\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}
+		\draw(0, 0) -- (0, -2)
+		node[pos=0] {\textbullet};
+		\draw (0, -2) -| (5, 2)
+		node[pos=0, below] {$(0, c)$}
+		node[pos=0.5, below] {$(b, c)$}
+		node[pos=1, above] {$(b, d)$}
+		;
+		\draw (5, 2) -| (0, 0)
+		node[pos=0.5, above] {$(0, d)$}
+		;
+		\draw(0, 0.5) -| (1, -0.5)
+		node[pos=0.25, above] {$\varepsilon$}
+		node[pos=0.75, right] {$\varepsilon$}
+		node[pos=0.75, left] {$Q_\varepsilon$}
+		;
+		\draw(1, -0.5) -- (0, -0.5);
+		\draw[dashed](1, 2) |- (5, 0.5);
+		\draw[dashed](1, -2) |- (5, -0.5);
+	\end{tikzpicture}
+	\hfill
+	\begin{tikzpicture}
+		\draw(0, 0) -| (4, 3)
+		node[pos=0] {\textbullet}
+		node[pos=0.5, below] {$(b, 0)$}
+		;
+		\draw (4, 3) -| (0, 0)
+		node[pos=0, above] {$(b, d)$}
+		node[pos=0.5, above] {$(0, d)$}
+		;
+		\draw (0, 1) -| (1, 0)
+		node[pos=0.25, above] {$\varepsilon$}
+		node[pos=0.75, right] {$\varepsilon$}
+		node[pos=0.75, left] {$Q_\varepsilon$}
+		;
+		\draw[dashed](1, 3) |- (4, 1);
+	\end{tikzpicture}
+	\label{fig:epsilon-rect}
+\end{figure}
+
+\paragraph{3.} \lipsum[3]
+
+\paragraph{4.} \lipsum[4]
+
+\end{document}
