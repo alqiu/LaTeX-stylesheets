@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{aq-notes}[2019/11/02 Notes Template]
+\ProvidesClass{aq-notes}[2019/11/17 Notes Template]
 
 \LoadClassWithOptions{article}
 
@@ -25,20 +25,23 @@
 \RequirePackage{float}
 \RequirePackage{bm}                  % bold math font
 \RequirePackage{bbm}                 % bold digits
+\RequirePackage{tikz}
 \RequirePackage{tikz-cd}
 \RequirePackage{lastpage}
 \RequirePackage{hyperref}            % try to load this last!
 
-\hypersetup{pdfstartview={XYZ null null 1.00},
-			colorlinks=true,
-			urlcolor=cyan,
-			linkcolor=cyan
-			}
-\geometry{margin=1in,
-		  headheight=\baselineskip,
-		  headsep=\baselineskip,
-		  heightrounded
-		  }
+\hypersetup{
+	pdfstartview={XYZ null null 1.00},
+	colorlinks=true,
+	urlcolor=cyan,
+	linkcolor=cyan
+}
+\geometry{
+	margin=1in,
+	headheight=\baselineskip,
+	headsep=\baselineskip,
+	heightrounded
+}
 
 % custom math commands
 \newcommand{\N}{\mathbb{N}}
@@ -54,9 +57,6 @@
 \newcommand{\sgn}{\operatorname{sgn}}
 \newcommand{\del}{\vec{\nabla}}
 \newcommand{\avgint}{\mathrel{\int\!\!\!\!\!\!-}}
-\newcommand{\cc}[1]{\overline{#1}}                       % from kdhw.cls
-\newcommand{\inner}[2]{\left\langle #1, #2\right\rangle} % from kdhw.cls
-\newcommand{\norm}[1]{\left|\left| #1 \right|\right|}    % from kdhw.cls
 
 \renewcommand{\qedsymbol}{$\blacksquare$} % Change Q.E.D. tombstone
 
@@ -64,38 +64,9 @@
 \newcommand\course[1]{\renewcommand\@course{#1}}
 
 %%%%%%%%%%%%%%%% requires package xparse %%%%%%%%%%%%%%%%
-%\usepackage{xparse} % define differential operator commands
-%\DeclareDocumentCommand{\d}{m O{} O{}}{\frac{d^{#3} #2}{d #1^{#3}}} % differential operator
-%\DeclareDocumentCommand{\p}{m O{} O{}}{\frac{\partial^{#3} #2}{\partial #1^{#3}}} % partial operator
-
-%%%%%%%%%%%% from kdhw.cls %%%%%%%%%%%%%%%%%%
-
-%\renewcommand{\maketitle}{
-%\thispagestyle{plain}
-%\vspace*{\fill}
-%{\center
-%\Huge\textsc{\@course : Lab \@problemsnumber} \Large\vspace{\baselineskip} \\
-%\@author \vspace{0.1cm} \\
-%\@prof
-%}
-%\vspace*{\fill}
-%\newpage
-%}
-%
-%\newsavebox{\mybox}
-%\newenvironment{problem}[1]
-%{\begin{lrbox}{\mybox}\begin{minipage}{\textwidth}
-%\textbf{#1} \\
-%
-%}
-%{\end{minipage}\end{lrbox}\fbox{\usebox{\mybox}}
-%\par\addvspace{\baselineskip}
-%}
-%
-%
-%\newenvironment{solution}
-%{\begin{flushleft}}
-%{\end{flushleft}\par\addvspace{\baselineskip}}
+% \usepackage{xparse} % define differential operator commands
+% \DeclareDocumentCommand{\d}{m O{} O{}}{\frac{d^{#3} #2}{d #1^{#3}}} % differential operator
+% \DeclareDocumentCommand{\p}{m O{} O{}}{\frac{\partial^{#3} #2}{\partial #1^{#3}}} % partial operator
 
 %%% theorem environments %%%
 
@@ -145,10 +116,10 @@
 	\newtheorem{example}[theorem]{Example}
 	\newtheorem*{example*}{Example}
 	\newtheorem*{examples*}{Examples}
-%%%%%%%%%%%%%%%% theorem styles after this point will have a \blacklozenge at the end %%%%%%%%%%%%%%%%
-%\makeatletter
-%    \def\@endtheorem{\hfill\pushQED{$\blacklozenge$}\popQED\endtrivlist\@endpefalse }
-%\makeatother
+%%%%%%%%%%%%%%%% theorem styles defined after this point will have a $\blacklozenge$ at the end %%%%%%%%%%%%%%%%
+\makeatletter
+   \def\@endtheorem{\hfill\pushQED{$\blacklozenge$}\popQED\endtrivlist\@endpefalse }
+\makeatother
 
 \numberwithin{figure}{section}
 \numberwithin{equation}{section}
@@ -160,7 +131,7 @@
 	\fancyhf{}
 	\renewcommand{\headrulewidth}{0pt}
 	\fancyfoot[C]{\thepage\ of \pageref*{LastPage}}
-	}
+}
 
 \pagestyle{fancy}
 \renewcommand{\footrulewidth}{0.4pt}
